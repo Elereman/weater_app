@@ -1,0 +1,29 @@
+name: weater_app
+description: Application to check weather.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  firebase_messaging: 7.0.3
+  firebase_auth: 0.18.3
+  firebase_core: 0.5.2
+  rxdart: 0.24.1
+  bloc_pattern: 2.5.1
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
