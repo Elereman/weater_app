@@ -16,18 +16,24 @@ class BaseRestGateWayWithCaching implements BaseRestGateWay {
       _response = await _gateWay.getRequest(baseUrl, path, locale, queryParams);
     } on Object catch (_) {
       if (queryParams['exclude'].contains('hourly')) {
-        return http.Response(await _cache.loadDailyCached(), 200);
+        return http.Response(await _cache.loadDailyCached(), 200,
+            headers: <String, String>{
+              'content-type': 'application/json; charset=utf-8'
+            });
       } else if (queryParams['exclude'].contains('daily')) {
-        return http.Response(await _cache.loadHourlyCached(), 200);
+        return http.Response(await _cache.loadHourlyCached(), 200,
+            headers: <String, String>{
+              'content-type': 'application/json; charset=utf-8'
+            });
       } else {
         rethrow;
       }
     }
 
     if (queryParams['exclude'].contains('hourly')) {
-      _cache.cacheDaily(_response.body);
+      _cache.cacheDaily(_response.body.toString());
     } else if (queryParams['exclude'].contains('daily')) {
-      _cache.cacheHourly(_response.body);
+      _cache.cacheHourly(_response.body.toString());
     }
     return _response;
   }
