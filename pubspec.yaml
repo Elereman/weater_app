@@ -1,4 +1,4 @@
-name: weater_app
+name: weather_app
 description: Application to check weather.
 
 publish_to: 'none'
@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  http: 0.12.2
   geolocator: 6.1.4
   equatable: 1.2.5
   firebase_messaging: 7.0.3
@@ -16,7 +17,8 @@ dependencies:
   firebase_core: 0.5.2
   rxdart: 0.24.1
   bloc_pattern: 2.5.1
-  provider: 4.3.2+2
+  get_it: 5.0.1
+  easy_localization: 2.3.3
   flutter:
     sdk: flutter
 
@@ -30,4 +32,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/splash.png
+    - assets/
+    - assets/icons/
+    - assets/translations/
