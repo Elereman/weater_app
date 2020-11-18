@@ -27,6 +27,7 @@
   "eve":"Вечер",
   "morn":"Утро",
   "app_error":"Ошибка",
+  "app_retry":"Попробовать Снова",
   "WeatherState.Thunderstorm":"Гроза",
   "WeatherState.Drizzle":"Морось",
   "WeatherState.Rain":"Дождь",
