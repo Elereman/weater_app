@@ -1,1 +1,0 @@
-enum WeatherState {Thunderstorm, Drizzle, Rain, Snow, Clear, Clouds, Mist}

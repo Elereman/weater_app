@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/flutter/bloc/home_page/bloc.dart';
 import 'package:weather_app/flutter/bloc/home_page/state.dart';
-import 'package:weather_app/flutter/weather_states.dart';
+import 'package:weather_app/domain/entity/weather/weather_states.dart';
 import 'package:weather_app/flutter/widget/mode_select.dart';
 import 'package:weather_app/flutter/widget/weather.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -32,6 +32,10 @@ class HomePage extends StatelessWidget {
                     children: <Widget>[
                       Text(_title),
                       ModeSelectWidget(
+                        key: ObjectKey(snapshot.data.weatherType),
+                        value: snapshot.data.weatherType == WeatherType.Hourly
+                            ? 'mode_hourly'.tr()
+                            : 'mode_daily'.tr(),
                         onChanged: (String mode) {
                           if (mode == 'mode_daily'.tr()) {
                             _bloc.fetchWeatherDaily(snapshot.data.location);
@@ -40,62 +44,79 @@ class HomePage extends StatelessWidget {
                           }
                         },
                         modes: <String>['mode_daily'.tr(), 'mode_hourly'.tr()],
-                        initialState: 'mode_hourly'.tr(),
                       ),
                     ],
                   ),
                 ),
-                body: snapshot.data.weatherType == WeatherType.Hourly ? ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 3),
-                  itemCount: snapshot.data.weatherHourlyList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 3, horizontal: 3),
-                      child: WeatherWidget.fromHourlyWeatherForecast(
-                        backgroundDecoration: const BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/background.jpg'),
-                                fit: BoxFit.cover),
-                            color: Colors.white),
-                        image: _determinateIconForWidget(snapshot.data
-                            .weatherHourlyList[index].weatherState),
-                        weather:
-                        snapshot.data.weatherHourlyList[index],
+                body: snapshot.data.weatherType == WeatherType.Hourly
+                    ? ListView.builder(
+                        padding: const EdgeInsets.symmetric(vertical: 3),
+                        itemCount: snapshot.data.weatherHourlyList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 3, horizontal: 3),
+                            child: WeatherWidget.fromHourlyWeatherForecast(
+                              backgroundDecoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                      image:
+                                          AssetImage('assets/background.jpg'),
+                                      fit: BoxFit.cover),
+                                  color: Colors.white),
+                              image: _determinateIconForWidget(snapshot
+                                  .data.weatherHourlyList[index].weatherState),
+                              weather: snapshot.data.weatherHourlyList[index],
+                            ),
+                          );
+                        },
+                      )
+                    : ListView.builder(
+                        padding: const EdgeInsets.symmetric(vertical: 3),
+                        itemCount: snapshot.data.weatherDailyList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 3, horizontal: 3),
+                            child: WeatherWidget.fromDailyWeatherForecast(
+                              backgroundDecoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                      image:
+                                          AssetImage('assets/background.jpg'),
+                                      fit: BoxFit.cover),
+                                  color: Colors.white),
+                              image: _determinateIconForWidget(snapshot
+                                  .data.weatherDailyList[index].weatherState),
+                              weather: snapshot.data.weatherDailyList[index],
+                              secondRow: _weekdayFromInt(snapshot
+                                  .data.weatherDailyList[index].date.weekday),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ) : ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 3),
-                  itemCount: snapshot.data.weatherDailyList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 3, horizontal: 3),
-                      child: WeatherWidget.fromDailyWeatherForecast(
-                        backgroundDecoration: const BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/background.jpg'),
-                                fit: BoxFit.cover),
-                            color: Colors.white),
-                        image: _determinateIconForWidget(snapshot.data
-                            .weatherDailyList[index].weatherState),
-                        weather:
-                        snapshot.data.weatherDailyList[index],
-                        secondRow: _weekdayFromInt(snapshot.data
-                            .weatherDailyList[index].date.weekday),
-                      ),
-                    );
-                  },
-                ),
               );
             } else if (snapshot.data.status == BlocStatus.Error) {
               return Scaffold(
                 appBar: AppBar(),
-                body: const Center(
-                  child: CircularProgressIndicator(),
+                body: Stack(
+                  children: <Widget>[
+                    Center(
+                      child: Text(
+                        'app_error'.tr(),
+                        style: const TextStyle(color: Colors.red, fontSize: 22),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: MaterialButton(
+                        color: Colors.red,
+                        child: Text('app_retry'.tr()),
+                        onPressed: () => snapshot.data.weatherType ==
+                                WeatherType.Hourly
+                            ? _bloc.fetchWeatherHourly(snapshot.data.location)
+                            : _bloc.fetchWeatherDaily(snapshot.data.location),
+                      ),
+                    )
+                  ],
                 ),
               );
             } else {
@@ -167,6 +188,30 @@ class HomePage extends StatelessWidget {
         return const AssetImage('assets/icons/clouds.png');
         break;
       case WeatherState.Mist:
+        return const AssetImage('assets/icons/mist.png');
+        break;
+      case WeatherState.Fog:
+        return const AssetImage('assets/icons/mist.png');
+        break;
+      case WeatherState.Tornado:
+        return const AssetImage('assets/icons/mist.png');
+        break;
+      case WeatherState.Squall:
+        return const AssetImage('assets/icons/mist.png');
+        break;
+      case WeatherState.Haze:
+        return const AssetImage('assets/icons/mist.png');
+        break;
+      case WeatherState.Dust:
+        return const AssetImage('assets/icons/mist.png');
+        break;
+      case WeatherState.Sand:
+        return const AssetImage('assets/icons/mist.png');
+        break;
+      case WeatherState.Ash:
+        return const AssetImage('assets/icons/mist.png');
+        break;
+      case WeatherState.Smoke:
         return const AssetImage('assets/icons/mist.png');
         break;
       default:

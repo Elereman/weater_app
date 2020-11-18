@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 class ModeSelectWidget extends StatefulWidget {
   final Function(String) _onChanged;
   final List<String> _modes;
-  final String _initialState;
+  final String _value;
 
   const ModeSelectWidget(
       {@required Function(String) onChanged,
       @required List<String> modes,
-      @required String initialState,
+      @required String value,
       Key key})
       : _onChanged = onChanged,
         _modes = modes,
-        _initialState = initialState,
+        _value = value,
         super(key: key);
 
   @override
@@ -21,18 +21,15 @@ class ModeSelectWidget extends StatefulWidget {
 }
 
 class _ModeSelectWidgetState extends State<ModeSelectWidget> {
-  String _state;
-
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
         items: _menuItemsFromModes(widget._modes),
         onChanged: (String value) => setState(() {
-          _state = value;
-          widget._onChanged(_state);
+          widget._onChanged(value);
         }),
-        value: _state ?? widget._initialState,
+        value: widget._value,
       ),
     );
   }

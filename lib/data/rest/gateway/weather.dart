@@ -9,13 +9,13 @@ import 'package:weather_app/data/model/weather_hourly_forecast.dart';
 
 class RestWeatherGateway implements WeatherGateway {
   final BaseRestGateWay _baseRestGateWay;
-  final String _baseUrl, _path, _apiKey;
+  final String _baseUrl, _path, _apiKey, _locale;
   final Factory<WeatherHourlyForecastDto, Map<String, dynamic>>
       _dtoHourlyFactory;
   final Factory<WeatherDailyForecastDto, Map<String, dynamic>> _dtoDailyFactory;
 
   RestWeatherGateway(this._baseRestGateWay, this._apiKey, this._baseUrl,
-      this._path, this._dtoHourlyFactory, this._dtoDailyFactory);
+      this._path, this._dtoHourlyFactory, this._dtoDailyFactory, this._locale);
 
   @override
   Future<List<WeatherDailyForecastDto>> getDaily(double lat, double lng) async {
@@ -26,8 +26,8 @@ class RestWeatherGateway implements WeatherGateway {
       'units': 'metric',
       'appid': _apiKey
     };
-    final http.Response response =
-        await _baseRestGateWay.getRequest(_baseUrl, _path, _requestParams);
+    final http.Response response = await _baseRestGateWay.getRequest(
+        _baseUrl, _path, _locale, _requestParams);
     final Map<String, dynamic> jsonResponse =
         json.decode(response.body) as Map<String, dynamic>;
     final List<dynamic> _weatherJson = jsonResponse['daily'] as List<dynamic>;
@@ -46,8 +46,8 @@ class RestWeatherGateway implements WeatherGateway {
       'units': 'metric',
       'appid': _apiKey
     };
-    final http.Response response =
-        await _baseRestGateWay.getRequest(_baseUrl, _path, _requestParams);
+    final http.Response response = await _baseRestGateWay.getRequest(
+        _baseUrl, _path, _locale, _requestParams);
     final Map<String, dynamic> jsonResponse =
         json.decode(response.body) as Map<String, dynamic>;
     final List<dynamic> _weatherJson = jsonResponse['hourly'] as List<dynamic>;

@@ -1,5 +1,4 @@
 import 'package:weather_app/domain/entity/location.dart';
-import 'package:weather_app/domain/entity/weather.dart';
 import 'package:weather_app/domain/entity/weather/daily_forecast.dart';
 import 'package:weather_app/domain/entity/weather/hourly_forecast.dart';
 import 'package:weather_app/domain/usecase/get_weather_daily.dart';
@@ -26,7 +25,6 @@ class FetchWeatherDailyEvent implements HomePageEvent<HomePageState> {
                 BlocStatus.Loaded,
                 state?.location))))
         .catchError((Object error) {
-      print(error);
       _eventSink.add(WeatherFetchedEvent(HomePageState(
           <WeatherDailyForecast>[],
           <WeatherHourlyForecast>[],

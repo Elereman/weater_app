@@ -1,5 +1,5 @@
 import 'package:weather_app/domain/entity/temperature_forecast.dart';
-import 'package:weather_app/flutter/weather_states.dart';
+import 'package:weather_app/domain/entity/weather/weather_states.dart';
 
 class WeatherDailyForecast {
   final DateTime _date;

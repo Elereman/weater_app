@@ -19,6 +19,7 @@ dependencies:
   bloc_pattern: 2.5.1
   get_it: 5.0.1
   easy_localization: 2.3.3
+  shared_preferences: 0.5.12+4
   flutter:
     sdk: flutter
 

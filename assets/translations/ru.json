@@ -1,4 +1,5 @@
 {
+  "locale":"ru",
   "mode_daily":"По дням",
   "mode_hourly":"По часам",
   "weather_feels_like":"Чевствуется как",
@@ -9,6 +10,9 @@
   "weather_main":"Weather",
   "weather_description":"Описание",
   "weather_date":"Дата",
+  "weather_time":"Время",
+  "weather_hPa":"гПа",
+  "weather_metre/sec":"Метр/сек",
   "weather_day_monday":"Понедельник",
   "weather_day_tuesday":"Вторник",
   "weather_day_wednesday":"Среда",
@@ -22,5 +26,20 @@
   "temp_night":"Ночь",
   "eve":"Вечер",
   "morn":"Утро",
-  "app_error":"Ошибка"
+  "app_error":"Ошибка",
+  "WeatherState.Thunderstorm":"Гроза",
+  "WeatherState.Drizzle":"Морось",
+  "WeatherState.Rain":"Дождь",
+  "WeatherState.Snow":"Снег",
+  "WeatherState.Clear":"Ясно",
+  "WeatherState.Clouds":"Облачно",
+  "WeatherState.Mist":"Туман",
+  "WeatherState.Tornado":"Торнадо",
+  "WeatherState.Squall":"Шквал",
+  "WeatherState.Ash":"Пепел",
+  "WeatherState.Dust":"Пыль",
+  "WeatherState.Sand":"Песок",
+  "WeatherState.Fog":"Туман",
+  "WeatherState.Haze":"Мгла",
+  "WeatherState.Smoke":"Дым"
 }

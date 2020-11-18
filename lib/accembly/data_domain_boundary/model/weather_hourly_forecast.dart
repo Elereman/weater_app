@@ -1,7 +1,7 @@
 import 'package:weather_app/backbone/factory.dart';
 import 'package:weather_app/data/model/weather_hourly_forecast.dart';
 import 'package:weather_app/domain/entity/weather/hourly_forecast.dart';
-import 'package:weather_app/flutter/weather_states.dart';
+import 'package:weather_app/domain/entity/weather/weather_states.dart';
 
 class WeatherHourlyForecastFromDtoFactory
     implements Factory<WeatherHourlyForecast, WeatherHourlyForecastDto> {
@@ -40,6 +40,30 @@ class WeatherHourlyForecastFromDtoFactory
         break;
       case 'Mist':
         return WeatherState.Mist;
+        break;
+      case 'Sand':
+        return WeatherState.Sand;
+        break;
+      case 'Dust':
+        return WeatherState.Dust;
+        break;
+      case 'Ash':
+        return WeatherState.Ash;
+        break;
+      case 'Fog':
+        return WeatherState.Fog;
+        break;
+      case 'Haze':
+        return WeatherState.Haze;
+        break;
+      case 'Smoke':
+        return WeatherState.Smoke;
+        break;
+      case 'Squall':
+        return WeatherState.Squall;
+        break;
+      case 'Tornado':
+        return WeatherState.Tornado;
         break;
       default:
         return WeatherState.Clear;

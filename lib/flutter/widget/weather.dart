@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/domain/entity/weather.dart';
 import 'package:weather_app/domain/entity/weather/daily_forecast.dart';
 import 'package:weather_app/domain/entity/weather/hourly_forecast.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -12,38 +11,6 @@ class WeatherWidget extends StatefulWidget {
   final TextStyle _titleStyle;
   final TextStyle _detailsStyle;
   final double _detailsHeight;
-
-  WeatherWidget(
-      {@required Decoration backgroundDecoration,
-      @required ImageProvider image,
-      @required Weather weather,
-      TextStyle titleStyle = const TextStyle(
-        color: Colors.white,
-        fontSize: 20,
-      ),
-      TextStyle detailStyle = const TextStyle(
-        color: Colors.white,
-        fontSize: 14,
-      ),
-      double detailsHeight = 150,
-      Key key})
-      : _firsRow = weather.temp.toString(),
-        _secondRow = weather.feelsLike.toString(),
-        _image = image,
-        _backgroundDecoration = backgroundDecoration,
-        _titleStyle = titleStyle,
-        _detailsStyle = detailStyle,
-        _detailsHeight = detailsHeight,
-        super(key: key) {
-    _details.addAll(<String>[
-      weather.weatherState.toString(),
-      weather.weatherDescription,
-      '${'weather_pressure'.tr()}: ${weather.pressure}',
-      '${'weather_feels_like'.tr()}: ${weather.feelsLike}',
-      '${'weather_wind_speed'.tr()}: ${weather.windSpeed}',
-      '${'weather_humidity'.tr()}: ${weather.humidity}'
-    ]);
-  }
 
   WeatherWidget.fromDailyWeatherForecast(
       {@required Decoration backgroundDecoration,
@@ -60,7 +27,7 @@ class WeatherWidget extends StatefulWidget {
       ),
       double detailsHeight = 150,
       Key key})
-      : _firsRow = weather.temp.day.toString(),
+      : _firsRow = '${weather.temp.day} °C',
         _secondRow = secondRow,
         _image = image,
         _backgroundDecoration = backgroundDecoration,
@@ -69,12 +36,12 @@ class WeatherWidget extends StatefulWidget {
         _detailsHeight = detailsHeight,
         super(key: key) {
     _details.addAll(<String>[
-      weather.weatherState.toString(),
+      weather.weatherState.toString().tr(),
       weather.weatherDescription,
-      '${'weather_pressure'.tr()}: ${weather.pressure}',
-      '${'weather_feels_like'.tr()}: ${weather.feelsLike.day}',
-      '${'weather_wind_speed'.tr()}: ${weather.windSpeed}',
-      '${'weather_humidity'.tr()}: ${weather.humidity}'
+      '${'weather_pressure'.tr()}: ${weather.pressure} ${'weather_hPa'.tr()}',
+      '${'weather_feels_like'.tr()}: ${weather.feelsLike.day} °C',
+      '${'weather_wind_speed'.tr()}: ${weather.windSpeed} ${'weather_metre/sec'.tr()}',
+      '${'weather_humidity'.tr()}: ${weather.humidity} %'
     ]);
   }
 
@@ -92,8 +59,9 @@ class WeatherWidget extends StatefulWidget {
       ),
       double detailsHeight = 150,
       Key key})
-      : _firsRow = weather.temp.toString(),
-        _secondRow = '${weather.date.hour} : ${weather.date.minute}',
+      : _firsRow = '${weather.temp} °C',
+        _secondRow =
+            '${'weather_time'.tr()}: ${weather.date.hour}:${weather.date.minute}',
         _image = image,
         _backgroundDecoration = backgroundDecoration,
         _titleStyle = titleStyle,
@@ -101,12 +69,12 @@ class WeatherWidget extends StatefulWidget {
         _detailsHeight = detailsHeight,
         super(key: key) {
     _details.addAll(<String>[
-      weather.weatherState.toString(),
+      weather.weatherState.toString().tr(),
       weather.weatherDescription,
-      '${'weather_pressure'.tr()}: ${weather.pressure}',
-      '${'weather_feels_like'.tr()}: ${weather.feelsLike}',
-      '${'weather_wind_speed'.tr()}: ${weather.windSpeed}',
-      '${'weather_humidity'.tr()}: ${weather.humidity}'
+      '${'weather_pressure'.tr()}: ${weather.pressure} ${'weather_hPa'.tr()}',
+      '${'weather_feels_like'.tr()}: ${weather.feelsLike} °C',
+      '${'weather_wind_speed'.tr()}: ${weather.windSpeed} ${'weather_metre/sec'.tr()}',
+      '${'weather_humidity'.tr()}: ${weather.humidity} %'
     ]);
   }
 
@@ -143,7 +111,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                         style: widget._titleStyle,
                       ),
                       Text(
-                        '${'weather_date'.tr()}: ${widget._secondRow}',
+                        widget._secondRow,
                         textAlign: TextAlign.start,
                         style: widget._titleStyle,
                       ),

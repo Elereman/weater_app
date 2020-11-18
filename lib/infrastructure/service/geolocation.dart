@@ -9,7 +9,7 @@ class FlutterGeolocationService implements GeolocationService{
       final Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       return Location(position.longitude, position.latitude);
     } on Object {
-      return Location(25.68, 16.78);
+      return Location(30.52, 50.43);
     }
   }
 }

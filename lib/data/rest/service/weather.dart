@@ -1,10 +1,8 @@
 import 'package:weather_app/backbone/factory.dart';
 import 'package:weather_app/data/gateway/weather.dart';
-import 'package:weather_app/data/model/weather.dart';
 import 'package:weather_app/data/model/weather_daily_forecast.dart';
 import 'package:weather_app/data/model/weather_hourly_forecast.dart';
 import 'package:weather_app/domain/entity/location.dart';
-import 'package:weather_app/domain/entity/weather.dart';
 import 'package:weather_app/domain/entity/weather/daily_forecast.dart';
 import 'package:weather_app/domain/entity/weather/hourly_forecast.dart';
 import 'package:weather_app/domain/service/weather.dart';
