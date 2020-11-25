@@ -29,7 +29,7 @@ import 'package:weather_app/infrastructure/service/rest_cache.dart';
 
 final GetIt sl = GetIt.instance;
 
-const String APIKEY = 'a986617c131b35fea65cbfe853ec1189';
+const String APIKEY = 'Uour OpenWeatherMap Key';
 const String BASEURL = 'api.openweathermap.org';
 const String PATH = '/data/2.5/onecall';
 final String _locale = 'locale'.tr();
